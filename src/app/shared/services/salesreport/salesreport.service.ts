@@ -18,6 +18,10 @@ export class SalesreportService {
   PurchaseView(data) {
     return this._http.post('http://localhost:8088/api/Purchase/PurchaseView', data)
   }
+  SaleView(data) {
+    return this._http.post('http://localhost:8088/api/Sale/SaleView', data)
+  }
+
   PurchaseViewDetails(data) {
     return this._http.post('http://localhost:8088/api/Purchase/PurchaseViewDetails', data)
   }

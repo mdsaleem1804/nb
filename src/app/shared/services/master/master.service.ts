@@ -67,7 +67,7 @@ export class MasterService {
   }
   saleInsert(_data: SaleHeader) {
 
-    return this._http.post('http://localhost:8088/api/Purchase/PurchaseEntry', _data)
+    return this._http.post('http://localhost:8088/api/Sale/SaleEntry', _data)
   }
 
 }
