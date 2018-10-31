@@ -4,9 +4,6 @@ import { DatePipe } from '@angular/common';
 import { slideToRight } from '../../router.animations';
 import { SalesreportService } from '../../shared/services/salesreport/salesreport.service';
 import { SalesReport} from '../../shared/models/salesreport';
-import { PurchaseReport} from '../../shared/models/purchasereport';
-import { PurchaseHeaderResponse} from '../../shared/models/purchase';
-
 import { ApiResponse } from '../../shared/models/response';
 import { MenuItem, ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/components/common/messageservice';
@@ -23,14 +20,10 @@ import { Title } from '../../../../node_modules/@angular/platform-browser';
   providers: [DatePipe]
 })
 export class SalesreportComponent implements OnInit {
-
-  salesReport: SalesReport = new SalesReport();
-  purchaseReport: PurchaseReport = new PurchaseReport();
   fromDate: Date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
  // toDate: Date = new Date();
  toDate: Date =  new Date(new Date().getFullYear(), new Date().getMonth() , new Date().getDate());
-  xPurchaseReport: Array<PurchaseHeaderResponse> = new Array<PurchaseHeaderResponse>();
-  xArrPurchaseReport: Array<PurchaseHeaderResponse> = new Array<PurchaseHeaderResponse>();
+
 
   totalAmount: number = 0;
   totalBills: number = 0;

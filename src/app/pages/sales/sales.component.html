@@ -1,3 +1,141 @@
-<p>
-  sales works!
-</p>
+
+
+  <div style="text-align:right">
+    <h1>Sale Invoice No : {{saleHeader.saleHeaderId}}</h1>
+    <button type="submit" accesskey="a" class="btn btn-default" pButton icon="fa fa-plus" 
+    (click)="showDialogToAdd()" label="Add"></button>
+</div>
+
+  <p-table [value]="arrSaleDetails" selectionMode="single" [(selection)]="selectedSaleDetail" (onRowSelect)="onRowSelect($event)"
+    [rows]="15">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:55px">#</th>
+        <th>ItemName</th>
+        <th>Batch</th>
+        <th>Qty</th>
+        <th>Mrp</th>
+        <th>Gst</th>
+        <th>Discount</th>
+        <th>Total</th>
+      </tr>
+      <tr *ngIf="arrSaleDetails.length == 0">
+        <td colspan="4">
+          <span class="norecords">No records available to be displayed..</span>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowdata let-index="rowIndex">
+      <tr [pSelectableRow]="rowdata">
+
+        <td>{{index+1}}</td>
+        <td>{{onSelect(rowdata.saleItemId)}}</td>
+        <td>{{rowdata.batch}}</td>
+        <td>{{rowdata.qty}}</td>
+        <td>{{rowdata.mrp}}</td>
+        <td>{{rowdata.gst}}</td>
+        <td>{{rowdata.discount}}</td>
+        <td>{{rowdata.total}}</td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog header="Enter Details Here .." [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+    [width]="500">
+    <div class="ui-g ui-fluid" *ngIf="saleDetail">
+      <form #f_sale="ngForm">
+        <div class="col-lg-12 col-md-12 col-xs-12 form-row">
+          <span class="inp-label top">Item Name</span>
+          <select class="inp-text col-lg-12 col-md-12 col-xs-12" name="a" [(ngModel)]="saleDetail.saleItemId">
+            <option value=''>Select</option>
+            <option *ngFor="let item of items" value={{item.itemId}}>
+              {{item.itemName}}
+            </option>
+          </select>
+
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-xs-12 form-row">
+          <span class="inp-label top">Batch</span>
+          <input type="text" #b="ngModel" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12" name="batch"
+            [(ngModel)]="saleDetail.batch" floating required appAutofocus>
+          <div *ngIf="f_sale.submitted && b.invalid" class="inp-text mandatory-validation">
+            <div *ngIf="b.errors.required">Batch is required</div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-xs-12 form-row">
+          <span class="inp-label top">Qty</span>
+          <input type="number" #model_qty="ngModel" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+            name="qty" [(ngModel)]="saleDetail.qty" floating required>
+          <div *ngIf="f_sale.submitted && model_qty.invalid" class="inp-text mandatory-validation">
+            <div *ngIf="model_qty.errors.required">Qty is required</div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-xs-12 form-row">
+          <span class="inp-label top">Mrp</span>
+          <input type="number" #model_mrp="ngModel" (change)="calculateTotal()" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+            name="mrp" [(ngModel)]="saleDetail.mrp" floating required>
+          <div *ngIf="f_sale.submitted && model_mrp.invalid" class="inp-text mandatory-validation">
+            <div *ngIf="model_mrp.errors.required">Mrp is required</div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-xs-12 form-row">
+          <span class="inp-label top">Gst</span>
+          <input type="number" #model_gst="ngModel" (change)="calculateTotal()" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+            name="gst" [(ngModel)]="saleDetail.gst" floating required>
+          <div *ngIf="f_sale.submitted && model_gst.invalid" class="inp-text mandatory-validation">
+            <div *ngIf="model_gst.errors.required">Gst is required</div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-xs-12 form-row">
+          <span class="inp-label top">Discount</span>
+          <input type="number" #model_discount="ngModel" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+            name="discount" [(ngModel)]="saleDetail.discount" (change)="calculateTotal()" floating required>
+          <div *ngIf="f_sale.submitted && model_discount.invalid" class="inp-text mandatory-validation">
+            <div *ngIf="model_discount.errors.required">Discount is required</div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-xs-12 form-row">
+          <span class="inp-label top">Total</span>
+          <input type="text" #lg="ngModel" class="inp-text mandatory 
+        capitalize col-lg-12 col-md-12 col-xs-12"
+            name="total" [(ngModel)]="saleDetail.total" floating readonly>
+
+        </div>
+        <button type="submit" class="btn btn-default" (click)="saleSaveDetails(f_sale);">Save</button>
+        <button type="submit" class="btn btn-default" (click)="delete();">Delete</button>
+      </form>
+    </div>
+
+  </p-dialog>
+
+  <form #frmsale="ngForm">
+    <div class="form-row">
+      <div class="col-lg-4 col-md-4 col-xs-12 form-row">
+        <span class="inp-label top">From Date</span>
+        <p-calendar name="fromdate" #fromdate="ngModel" [required]="true" [readonlyInput]="true" [monthNavigator]="true"
+          [yearNavigator]="true" yearRange="2000:2030" [(ngModel)]="fromDate" dateFormat="dd.mm.yy"></p-calendar>
+      </div>
+      <div class="col-lg-4 col-md-4 col-xs-12 form-row">
+        <span class="inp-label top">Ledger Name</span>
+        <select autofocus name="groupId" [(ngModel)]="saleHeader.saleLedgerId" #lgopt="ngModel" class="inp-text col-lg-12 col-md-12 col-xs-12"
+          required>
+          <option value=''>Select</option>
+          <option *ngFor="let ledger of ledgers" [value]="ledger.ledgerId">{{ledger.ledgerName}}</option>
+        </select>
+        <div *ngIf="frmsale.submitted && lgopt.invalid" class="inp-text mandatory-validation">
+          <div *ngIf="lgopt.errors.required">Ledger is required</div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-xs-12 form-row text-center">
+        <button type="submit" accesskey="s" class="btn btn-default" (click)="saleSave(frmsale);">{{(item.itemId==0)
+          ? 'Save': 'Update' }}</button>
+      </div>
+    </div>
+
+
+  </form>
+

@@ -7,6 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { SharedLib } from '../../shared.config';
 import { PurchaseHeader } from '../../models/purchase';
+import { SaleHeader } from '../../models/sale';
 @Injectable({
   providedIn: 'root'
 })
@@ -64,6 +65,9 @@ export class MasterService {
     //console.log(_data);
     return this._http.post('http://localhost:8088/api/Purchase/PurchaseEntry', _data)
   }
+  saleInsert(_data: SaleHeader) {
 
+    return this._http.post('http://localhost:8088/api/Purchase/PurchaseEntry', _data)
+  }
 
 }

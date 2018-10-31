@@ -20,11 +20,3 @@ export class PurchaseDetails {
     public  discount : number;
     public  total : number;
 }
-export class PurchaseHeaderResponse {
-    public  purchaseHeaderId  : number = 0;
-    public  purchaseLedgerId : number;
-    public ledgerName: string = '';
-    public  totalAmount : number;
-    public updatedBy: string = '';
-    public billDate:Date;
-}
