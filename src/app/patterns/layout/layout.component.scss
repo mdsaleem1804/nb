@@ -1,0 +1,16 @@
+@import  './../../../variables.scss';
+
+#main {
+    transition: margin-left .3s;
+    margin-top: 70px;
+    margin-left: 70px;
+    &.opened{
+      margin-left: 250px;
+  }
+}
+
+@media(max-width:750px){
+    #main {
+      margin-left: 0px;
+    }
+  }

@@ -1,0 +1,22 @@
+@import '../variables.scss';
+
+/*Selection button*/
+
+.multi-selection-button {
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+    li {
+        cursor: pointer;
+        border: 1px solid $cloud_white;
+        display: inline-block;
+        margin: 5px;
+        padding: 10px 25px;
+        border-radius: 25px;
+        box-shadow: 0px 0px 1px 1px $cloud_white;
+        &.active {
+            background: $primary_pink;
+            color: $white;
+        }
+    }
+}

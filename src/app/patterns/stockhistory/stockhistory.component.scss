@@ -1,0 +1,35 @@
+@import "./../../../variables.scss";
+
+.skudetail {
+  text-decoration: none;
+  color: $primary_pink;
+  font-size: 110%;
+  &:hover {
+    color: $secondary_pink;
+  }
+}
+
+.spanheader {
+  padding-left: 25px;
+  position: relative;
+  display: inline-block;
+  width: 96%;
+  text-align: left;
+  .backbutton {
+    color: #7e818c;
+    font-size: 30px;
+    position: absolute;
+    left: 0;
+    opacity: 0.8;
+    top: -9px;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.col-lg-12, .form-row{
+  padding-left:0; 
+  padding-right:0; 
+}

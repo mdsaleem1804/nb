@@ -1,0 +1,57 @@
+@import '../variables.scss';
+
+/* Button section */
+  
+.btn {
+    padding: 10px 15px;
+    min-width: 150px;
+    margin: 5px;
+    background: $white;
+    border: 1px solid $secondary_pink;
+    box-shadow: 0px 0px 1px 1px $light_secondarypink;
+    color: $primary_pink;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    transition: all .15s ease;
+    &.btn-default{
+      color: $white;
+      background: $secondary_pink;
+      &:not(.disabled):hover {
+        color: $white;
+        background: $primary_pink;
+      }
+    }
+    &.disabled {
+      background: $cloud_white;
+      border: 1px solid $cloud_white;
+      color: $disabled_text;
+      cursor: not-allowed;
+    }
+    &:not(.disabled) {
+      &:hover {
+        color: $secondary_pink;
+        border: 1px solid $secondary_pink;
+        //background: $primary_pink;
+        &:focus {
+          color: $white;
+        }
+      }
+      &:focus {
+        color: $primary_pink;
+      }
+    }
+  }
+
+  .actionbuttons{
+    cursor: pointer;
+    margin: 5%;
+    color: $primary_pink;
+    font-size: 18px;
+    &:hover{
+      color: $secondary_pink;
+    }
+  }

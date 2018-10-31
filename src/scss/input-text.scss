@@ -1,0 +1,68 @@
+@import '../variables.scss';
+
+/* Input section */
+
+.inp-text, .ui-calendar .ui-inputtext, .ui-autocomplete .inp-text {
+  position: relative;
+  display: inline-block;
+  font-family: $primary_font_family !important;
+  border: 0;
+  border-bottom: 1px solid $cloud_dark;
+  background: transparent;
+  padding: 10px 25px 10px 15px;
+  height: 42px;
+  width: 100%;
+  -moz-transition: ease-in 0.3s;
+  -o-transition: ease-in 0.3s;
+  -webkit-transition: ease-in 0.3s;
+  transition: ease-in 0.3s;
+  &.mandatory {
+    //border-left: 3px solid $primary_pink;
+  }
+  &:focus + .overlay-inptext {
+    color: $primary_pink;
+  }
+  &::-webkit-input-placeholder {
+    color: $place_holder;
+    -moz-transition: ease-in 0.5s;
+    -o-transition: ease-in 0.5s;
+    -webkit-transition: ease-in 0.5s;
+    transition: ease-in 0.5s;
+    transform-origin: 0 50%;
+  }
+  &:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 100%;
+  }
+  &:focus{
+    box-shadow: none;
+  }
+  &:focus::-webkit-input-placeholder {
+    text-indent: -500px;
+  }
+  &[disabled]{
+    color: $page_heading_bg;
+    opacity: 0.9;
+    cursor: not-allowed;
+  }
+}
+
+.overlay-inptext {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    -moz-transition: ease-in 0.3s;
+    -o-transition: ease-in 0.3s;
+    -webkit-transition: ease-in 0.3s;
+    transition: ease-in 0.3s;
+}
+
+body .ui-widget-overlay {
+    background-color: $black;
+    opacity: .85;
+    filter: Alpha(Opacity=50);
+}
