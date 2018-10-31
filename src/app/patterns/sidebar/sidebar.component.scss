@@ -1,0 +1,241 @@
+@import  './../../../variables.scss';
+
+/* The side navigation menu */
+
+#navbar {
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: $white;
+    z-index: 100;
+    border-bottom: 1px solid $cloud_white;
+    /* box-shadow: 0px 0px 1px 2px #ddd; */
+    margin-left: 70px;
+    transition: margin-left 0.3s;
+    .hamburger {
+      float: left;
+      padding: 15px;
+      font-size: 28px;
+      margin: 0px;
+      color: $primary_pink;
+      cursor: pointer;
+      transition: margin-left 0.3s ease-in-out;
+      &.opened {
+        margin-left: -50px;
+      }
+    }
+    &.opened{
+      margin-left: 250px;
+    }
+  }
+
+#sidenav {
+    height: 100%;
+    width: 70px;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: $page_heading_bg;
+    color: $page_heading_fg;
+    overflow-x: hidden;
+    padding-top: 0px;
+    transition: 0.3s;
+    border-right: 1px solid $cloud_white;
+    /* box-shadow: 0px 0px 1px 2px #ddd; */
+    > .logo {
+      display: block;
+      cursor: pointer;
+      background: $page_heading_bg;
+      height: 70px;
+      padding-top: 8px;
+    }
+    a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: $cloud_dark;
+      display: block;
+      transition: 0.3s;
+      &:hover {
+        color: $cloud_white;
+      }
+    }
+    .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+    &.opened{
+      width: 250px;
+    }
+  }
+
+  
+@media(max-width:750px){
+  #sidenav {
+    width: 0px;
+  }
+}
+  
+  /* The navigation menu links */
+  
+  /* When you mouse over the navigation links, change their color */
+  
+  /* Position and style the close button (top right corner) */
+  
+  .navcontents {
+    padding: 0px;
+    list-style: none;
+    li {
+      position: relative;
+      padding: 5px 0px;
+      display: inline-flex;
+      width: 100%;
+      border-bottom: 1px solid $page_bg2;
+      cursor: pointer;
+      &:first-child {
+        border-top: 1px solid $page_bg2;
+      }
+      &.navitem{
+        max-height: 50px;
+        transition:0.3s ease-in-out;
+        -o-transition:0.3s ease-in-out;
+        -moz-transition:0.3s ease-in-out;
+        -webkit-transition:0.3s ease-in-out;
+        ms-transition:0.3s ease-in-out;
+        &.selected{
+          &::before {
+            width: 5px;
+          }
+        }
+        &.selected, &:hover{
+          color: $primary_pink;
+          .navicon{
+            &[org='master']{
+              background-image: url('/assets/img/master.png');
+            }
+        
+            &[org='purchase']{
+              background-image: url('/assets/img/purchase.png');
+            }
+            &[org='sales']{
+              background-image: url('/assets/img/sales.png');
+            }
+            &[org='reports']{
+              background-image: url('/assets/img/reports.png');
+            }
+            &[org='users']{
+              background-image: url('/assets/img/users.png');
+            }
+            &[org='settings']{
+              background-image: url('/assets/img/settings.png');
+            }
+         
+          }
+        }
+      }
+      &::before {
+        position: absolute;
+        display: block;
+        content:'';
+        top:0;
+        left:0;
+        width: 0px;
+        height:50px;
+        background-color:$primary_pink; 
+        transition: all 0.3s ease-in-out;
+      }
+      .menu-count{
+        position: absolute;
+        top: 5px;
+        left: 45px;
+        font-size: 12px;
+        background: #e70d89;
+        min-width: 18px;
+        padding: 1px 2px;
+        height: 18px;
+        border-radius: 50%;
+        // font-weight: bold;
+        color: #FFF;
+      }
+    }
+  }
+  
+  .navicon {
+    font-size: 24px;
+    min-width: 70px;
+    text-align: center;
+    padding: 2px;
+    background-repeat: no-repeat;
+    background-size: 26px 26px;
+    background-position: center center;
+    transition:0.3s ease-in-out;
+    -o-transition:0.3s ease-in-out;
+    -moz-transition:0.3s ease-in-out;
+    -webkit-transition:0.3s ease-in-out;
+    ms-transition:0.3s ease-in-out;
+
+
+    &[org='master']{
+      background-image: url('/assets/img/master.png');
+    }
+
+    &[org='purchase']{
+      background-image: url('/assets/img/purchase.png');
+    }
+    &[org='sales']{
+      background-image: url('/assets/img/sales.png');
+    }
+    &[org='reports']{
+      background-image: url('/assets/img/reports.png');
+    }
+    &[org='users']{
+      background-image: url('/assets/img/users.png');
+    }
+    &[org='settings']{
+      background-image: url('/assets/img/settings.png');
+    }
+ 
+  }
+  
+  .navtext {
+    width: auto;
+    font-size: 14px;
+    display: inline-block;
+    padding: 10px 0px;
+  }
+  
+  .navuserprof {
+    width: 100%;
+    display: block;
+    text-align: center;
+    user-select: none;
+    img {
+      width: 50%;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0px 0px 1px 2px $cloud_white;
+      margin: 5px 0px;
+    }
+  }
+  
+  .sideusername {
+    display: block;
+    font-size: 16px;
+  }
+  
+  .sideuserdesc {
+    font-size: 12px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    #sidenav a {
+      font-size: 18px;
+    }
+  }

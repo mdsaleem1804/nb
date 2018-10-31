@@ -1,0 +1,6 @@
+[
+    {"proof_Id": 1, "proof_Name": "Aadhar"},
+    {"proof_Id": 2, "proof_Name": "VotersId"},
+    {"proof_Id": 3, "proof_Name": "License"},
+    {"proof_Id": 4, "proof_Name": "Pancard"}
+]

@@ -1,0 +1,126 @@
+<app-sidebar #sidebar></app-sidebar>
+<div id="navbar">
+  <span class="hamburger" [ngClass]="opened" (click)="toggleSideBar()">
+    <i *ngIf="opened == ''" class="fa fa-bars" aria-hidden="true"></i>
+    <i *ngIf="opened != ''" class="fa fa-angle-left" aria-hidden="true"></i>
+  </span>
+  <!-- <div class="search">
+    <input type="text" placeholder="Enter search text here . . ." />
+  </div> -->
+ <div class="navuser">  <!-- *ngIf="screenWidth > 640" -->
+    <!-- <div class="cashinfo">
+      <div class="cashbox">
+        <span>
+          <i class="fa fa-trophy" aria-hidden="true"></i>
+        </span>
+        <span class="amount">{{winboxcash | naira}}</span>
+        <span class="cashbox-header">REDEMPTION</span>
+      </div>
+      <div class="cashbox">
+        <span>
+          <i class="fa fa-briefcase" aria-hidden="true"></i>
+        </span>
+        <span class="amount">{{tradeboxcash | naira}}</span>
+        <span class="cashbox-header">TRADE</span>
+      </div>
+    </div>
+    <span #notifications class="navusericon">
+      <i class="fa fa-bell-o" pTooltip="Notifications" tooltipPosition="bottom" (click)="notificationPopupOpen = true" aria-hidden="true"></i>
+      <div *ngIf="notificationPopupOpen" [@slideToLeft] class="notification-box dropdownmenu animated bounceIn">
+        <div class="notification-header">
+          <h4>3 new notification</h4>
+          <a href="#">clear all</a>
+        </div>
+        <div class="notification-body ps-container ps-theme-default" data-ps-id="a2570d2c-54f4-ffb4-c2a8-ea4187ced408">
+          <ul>
+            <li class="unread">
+              <a href="#" class="single-notification">
+                <div class="notification-img bg_notif">
+                  <i class="fa fa-envelope-o"></i>
+                </div>
+                <div class="notification-txt">
+                  <h4>you have received an email</h4>
+                  <span>56 seconds ago</span>
+                </div>
+              </a>
+            </li>
+            <li class="unread">
+              <a href="#" class="single-notification">
+                <div class="notification-img bg_notif">
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="notification-txt">
+                  <h4>Successful transaction of $210</h4>
+                  <span>1 minutes ago</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="single-notification">
+                <div class="notification-img bg_notif">
+                  <i class="fa fa-thumbs-up"></i>
+                </div>
+                <div class="notification-txt">
+                  <h4>33 pending post for approval</h4>
+                  <span>3 minutes ago</span>
+                </div>
+              </a>
+            </li>
+            <li class="unread">
+              <a href="#" class="single-notification">
+                <div class="notification-img bg_notif">
+                  <i class="fa fa-comments-o"></i>
+                </div>
+                <div class="notification-txt">
+                  <h4>2 new comments found</h4>
+                  <span>5 minutes ago</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+          <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
+            <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+          </div>
+          <div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;">
+            <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+          </div>
+        </div>
+        <div class="notification-footer">
+          <a href="#">
+            <i class="fa fa-angle-down"></i> see all notification</a>
+        </div>
+      </div>
+    </span> -->
+    <span class="navusericon" (click)="logout()">
+      <i class="fa fa-power-off" pTooltip="Logout" tooltipPosition="bottom" aria-hidden="true"></i>
+    </span>
+    <!-- <span class="navusericon" (click)="display = true">
+      <i class="fa fa-cog infinite-spin" aria-hidden="true"></i>
+    </span> -->
+  </div>
+</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+<!-- <p-sidebar [(visible)]="display" position="right">
+  <div class="sidebar-header">
+    <span class="font-size: 24px;" (click)="display = false">
+      <i class="fa fa-cog infinite-spin" aria-hidden="true"></i>
+    </span>
+  </div>
+  <h2 class="settings-header">THEMES</h2>
+  <ul class="multi-selection-button">
+    <li *ngFor="let item of themes" (click)="activateTheme(item)" class="{{item.selected ? 'active':''}}">
+      {{item.name}}
+    </li>
+  </ul>
+  <hr>
+  <h2 class="settings-header">ACCOUNT SETTINGS</h2>
+  <ul class="settings-options">
+    <li>
+      <i class="fa fa-user settingsicon"></i>View Profile</li>
+    <li (click)="lockScreen()">
+      <i class="fa fa-lock settingsicon"></i>Lock Account</li>
+  </ul>
+</p-sidebar>
+<p-blockUI [blocked]="blocked">
+  <app-lockscreen (unlocked)="unLockScreen($event)" (logout)="logout()" *ngIf="blocked"></app-lockscreen>
+</p-blockUI> -->

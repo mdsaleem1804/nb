@@ -1,0 +1,88 @@
+<div class="panel panel-primary panel-default-height-75">
+  <div class="panel-heading">
+    <h4>Report</h4>
+  </div>
+
+ 
+      <div class="col-lg-4 form-row">
+        <span class="inp-label top">From Date</span>
+        <p-calendar name="fromdate" #fromdate="ngModel" [required]="true" [readonlyInput]="true" [monthNavigator]="true"
+          [yearNavigator]="true" yearRange="2000:2030" [(ngModel)]="fromDate" dateFormat="dd.mm.yy"></p-calendar>
+      </div>
+      <div class="col-lg-4 form-row">
+        <span class="inp-label top">To Date</span>
+        <p-calendar name="todate" #todate="ngModel" [required]="true" [readonlyInput]="true" [monthNavigator]="true"
+          [yearNavigator]="true" yearRange="2000:2030" [(ngModel)]="toDate" dateFormat="dd.mm.yy"></p-calendar>
+      </div>
+      <div class="col-lg-4 form-row" style="text-align: center;">
+        <button type="button" class="btn btn-default" (click)="getPurchaseView()">Search</button>
+      </div>
+
+    <p-tabView>
+
+      <p-tabPanel header="Purchase" leftIcon="pi pi-calendar">
+          <div class="col-lg-6 form-row">
+              <div class="totals">
+                <p>Total Amt  : <span class="amount">{{totalAmount}}</span></p>
+              </div>
+            </div>
+            <div class="col-lg-6 form-row">
+                <div class="totals">
+                  <p>Total Bills : <span class="amount">{{totalBills}}</span></p>
+                </div>
+              </div>
+            
+          <div class="col-lg-12 form-row">
+            <p-table #dtPending [value]="purchaseHeaderDetails" [rows]="10" [globalFilterFields]="['ledgerName']"
+              [autoLayout]="true" [loading]="tableLoading" [responsive]="true" [paginator]="true">
+              <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="30" placeholder="Search.." (input)="dtPending.filterGlobal($event.target.value, 'contains')"
+                    style="width:auto">
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th> Inv.No </th>
+                  <th pSortableColumn="date"> Date <p-sortIcon field="date" ariaLabel="Sort"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="ledgerName">Ledger Name <p-sortIcon field="ledgerName" ariaLabel="Sort"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="totalAmount">Total Amount <p-sortIcon field="totalAmount" ariaLabel="Sort"></p-sortIcon>
+                  </th>
+
+                  <!-- <th>Action</th> -->
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-xArrPurchaseReport let-index="rowIndex">
+                <tr>
+                  <td>
+                    <span class="ui-column-title">purchaseHeaderId</span>{{xArrPurchaseReport.purchaseHeaderId}}</td>
+                  <td>
+                    <span class="ui-column-title">billDate</span>{{xArrPurchaseReport.billDate}}</td>
+
+                  <td>
+                    <span class="ui-column-title">ledgerName</span>
+                    <app-stockhistory [isAdmin]="true" [isInventory]="false" [getPurchasaeInvoiceNo]="xArrPurchaseReport.purchaseinvoiceno"
+                      [operatorId]="userId" [gameBatchId]="xArrPurchaseReport.ledgerName" [sku]="xArrPurchaseReport.ledgerName"></app-stockhistory>
+                  </td>
+                  <td>
+                    <span class="ui-column-title">totalAmount</span>{{xArrPurchaseReport.totalAmount}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+       
+      </p-tabPanel>
+      <p-tabPanel header="Purchase Return">
+        </p-tabPanel>
+      <p-tabPanel header="Sales">
+        </p-tabPanel>
+        <p-tabPanel header="Sales Return">
+          </p-tabPanel>
+        <p-tabPanel header="Summary">
+          </p-tabPanel>
+    </p-tabView>
+
+</div>

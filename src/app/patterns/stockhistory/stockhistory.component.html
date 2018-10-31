@@ -1,0 +1,66 @@
+<a class="skudetail" *ngIf="!isInventory" href="javascript:void(0);" (click)="getStockHistoryData()">{{sku}}</a>
+<span class="actionbuttons" *ngIf="isInventory" pTooltip="View Inventory" tooltipPosition="left" (click)="getStockHistoryData();">
+  <i class="fa fa-eye" aria-hidden="true"></i>
+</span>
+<p-dialog [(visible)]="displayPopup" [modal]="true" [responsive]="true" [width]="1180" [height]="670" [baseZIndex]="10000">
+  <p-header>
+    <span class="spanheader">
+      <a *ngIf="!stockView" class="backbutton" (click)="stockView = true;"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+      {{sku}} - {{stockView ? 'Detailed View' : 'Card List'}}
+    </span>
+  </p-header>
+  <div class="col-lg-12 form-row" style="margin-top:0px;" *ngIf="stockView">
+
+    <div class="col-lg-12 form-row">
+      <p-table #dtStock [value]="stockHistory" [globalFilterFields]="['sku','ticketPrice','quantity','retailerName','location','agent','reference']"
+        *ngIf="!isInventory" [rows]="10" [autoLayout]="true" [loading]="tableLoading" [responsive]="true" [paginator]="true">
+        <ng-template pTemplate="caption">
+          <div style="text-align: right">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="30" placeholder="Search.." (input)="dtStock.filterGlobal($event.target.value, 'contains')"
+              style="width:auto">
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+              <th>Inv.No </th>
+            <th>ItemName </th>
+            <th>Qty </th>
+            <th>BatchId </th>
+            <th>DateExpired </th>
+            <th>Discount </th>
+            <th>Orig.Price </th>
+            <th>Selling Price </th>
+            <th>Gst </th>
+            <th>PackNo </th>
+            <th>Total </th>
+          </tr>
+          <tr *ngIf="stockHistory.length == 0">
+            <td colspan="5">
+              <span class="norecords">No records available to be displayed..</span>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-response let-index="rowIndex">
+          <tr>
+              <td><span class="ui-column-title">Location</span>{{response.purchaseinvoiceno}}</td>
+            <td><span class="ui-column-title">Location</span>{{response.itemname}}</td>
+            <td><span class="ui-column-title">Location</span>{{response.qty}}</td>
+            <td><span class="ui-column-title">Location</span>{{response.batchid}}</td>
+            <td><span class="ui-column-title">Location</span>{{response.dateexpired}}</td>
+              
+            <td><span class="ui-column-title">Location</span>{{response.discount}}</td>
+            <td><span class="ui-column-title">Location</span>{{response.originalprice}}</td>
+            <td><span class="ui-column-title">Location</span>{{response.sellingprice}}</td>
+            <td><span class="ui-column-title">Location</span>{{response.vat}}</td>
+            <td><span class="ui-column-title">Location</span>{{response.packno}}</td>
+            <td><span class="ui-column-title">Location</span>{{response.total}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+  </div>
+
+</p-dialog>
+<!-- <div class="ui-widget-overlay ui-dialog-mask" *ngIf="displayPopup" style="z-index: 11049;"></div> -->

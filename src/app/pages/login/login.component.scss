@@ -1,0 +1,50 @@
+@import  './../../../variables.scss';
+
+.login-bg {
+    background: $cloud_white;
+    float: left;
+    width: 100%;
+    height: 100vh;
+    background-image: url('/assets/img/bg-login.png');
+    background-size: contain;
+    background-position-x: 600px;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  
+  .login-container {
+    background: $white;
+    border: 1px solid $cloud_white;
+    padding: 55px 35px 20px;
+    padding-top: 35px;
+    margin: 0 auto;
+    margin-top: 15vh;
+    float: none;
+    display: table;
+  }
+  
+  .box-shadow {
+    -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-header {
+    width: 98%;
+    display: inline-block;
+    position: relative;
+    margin: 0px 5px 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    padding: 5px;
+    border-bottom: 2px solid $primary_pink;
+    &:after {
+      content: '';
+      position: absolute;
+      right: 0px;
+      bottom: -5px;
+      width: 75px;
+      height: 4px;
+      background: $primary_pink;
+    }
+  }

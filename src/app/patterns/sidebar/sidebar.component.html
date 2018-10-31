@@ -1,0 +1,75 @@
+<!-- <p-sidebar [(visible)]="display" [(modal)]="!display">
+    Content
+</p-sidebar>
+
+<button type="text" (click)="display = !display" icon="pi pi-plus"><i class="fa fa-bars" aria-hidden="true"></i></button> -->
+
+<div #sidenav id="sidenav">
+  <div class="logo">
+    <img src="assets/img/logo.png" width="70px" [routerLink]="['/sales-report']" />
+  </div>
+  <ul class="navcontents">
+    <li>
+      <div class="navuserprof" [routerLink]="['/profile']">
+        <div>
+         <!-- <img [src]="userPic" />!--> 
+        </div>
+        <div *ngIf="displayFull">
+          <span class="sideusername">
+           <!--  {{userName}}!-->
+          WELCOME
+          </span>
+          <span class="sideuserdesc">
+            {{userRole}}
+          </span>
+        </div>
+      </div>
+    </li>
+
+    <li class="navitem" [routerLink]="['/master']"  routerLinkActive="selected">
+      <span class="navicon" pTooltip="Master" tooltipZIndex="1" org="master">
+        </span>
+      <span class="navtext">
+    Master
+      </span>
+    </li>
+
+    <li class="navitem" [routerLink]="['/purchase']" >
+      <span class="navicon" pTooltip="Purchase" tooltipZIndex="2" org="purchase">
+        </span>
+      <span class="navtext">
+        Purchase 
+      </span>
+    </li>
+
+    <li class="navitem" [routerLink]="['/sales']" >
+      <span class="navicon" pTooltip="Sales" tooltipZIndex="3" org="sales">
+        </span>
+      <span class="navtext">
+        Sales 
+      </span>
+    </li>
+
+    <li class="navitem" [routerLink]="['/sales-report']" >
+      <span class="navicon" pTooltip="Reports" tooltipZIndex="4" org="reports">
+        </span>
+      <span class="navtext">
+          Reports 
+      </span>
+    </li>
+    <li class="navitem" [routerLink]="['/users']">
+      <span class="navicon" pTooltip="Users" tooltipZIndex="5" org="users">
+        </span>
+      <span class="navtext">
+        Users 
+      </span>
+    </li>
+    <li class="navitem" [routerLink]="['/settings']" >
+      <span class="navicon" pTooltip="Settings" tooltipZIndex="6" org="settings">
+        </span>
+      <span class="navtext">
+        Settings 
+      </span>
+    </li>
+  </ul>
+</div>

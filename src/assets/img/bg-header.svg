@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280px" height="73px" viewBox="0 0 1280 73" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>bg-header</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1280" height="73"></rect>
+        <rect id="path-3" x="0" y="0" width="1280" height="73"></rect>
+        <rect id="path-5" x="0" y="0" width="1280" height="73"></rect>
+        <rect id="path-7" x="0" y="0" width="1280" height="73"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bg-header">
+            <g id="Mask" fill="#E70D89" fill-rule="nonzero">
+                <rect id="path-1" x="0" y="0" width="1280" height="73"></rect>
+            </g>
+            <g id="Path-2-Clipped">
+                <g>
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="path-1"></g>
+                    <polygon id="Path-2" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-2)" points="-75.4281123 -8.37123128 348 -13.2856109 313.155924 78.9451348 -84.4391123 74.7033159"></polygon>
+                </g>
+            </g>
+            <g id="Path-3-Clipped">
+                <g id="Group">
+                    <g id="Path-3-Clipped">
+                        <mask id="mask-4" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <g id="path-3"></g>
+                        <polygon id="Path-3" fill="#8B1454" fill-rule="nonzero" mask="url(#mask-4)" points="914.72393 0.940627637 1257.81475 15.6254541 1277.28925 75.0373874 1288.3648 79.2491921 1288.3648 -33.3712615"></polygon>
+                    </g>
+                    <g id="Path-Clipped">
+                        <mask id="mask-6" fill="white">
+                            <use xlink:href="#path-5"></use>
+                        </mask>
+                        <g id="path-3"></g>
+                        <path d="M-25.462243,103.952686 C-38.3057371,94.8324027 -40.4264793,86.2449727 -31.8244697,78.1903962 C-23.2224602,70.1358198 21.6000577,38.739021 102.643084,-16 L-4.24315192,-16 L-25.462243,103.952686 Z" id="Path" fill="#FFD301" fill-rule="nonzero" mask="url(#mask-6)"></path>
+                    </g>
+                    <g id="Path-2-Clipped">
+                        <mask id="mask-8" fill="white">
+                            <use xlink:href="#path-7"></use>
+                        </mask>
+                        <g id="path-3"></g>
+                        <polygon id="Path-2" fill="#8B1454" fill-rule="nonzero" mask="url(#mask-8)" points="-0.688400834 43.8507177 81.4917132 -3.87431137 -16.1072208 -16"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
