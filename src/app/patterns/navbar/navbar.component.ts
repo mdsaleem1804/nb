@@ -25,7 +25,6 @@ export class NavbarComponent implements OnInit {
 
   themes: Array<any> = [
     { "name": "Light", "class": "light", "selected": true },
-    { "name": "GBAM", "class": "gbam-theme", "selected": false },
   ];
 
   @ViewChild("sidebar") sidebar: SidebarComponent;

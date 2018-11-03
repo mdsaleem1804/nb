@@ -29,81 +29,93 @@
       <tr [pSelectableRow]="rowdata">
 
         <td>{{index+1}}</td>
-        <td>{{onSelect(rowdata.saleItemId)}}</td>
+       <td>{{onSelect(rowdata.saleItemId)}}</td>
         <td>{{rowdata.batch}}</td>
         <td>{{rowdata.qty}}</td>
         <td>{{rowdata.mrp}}</td>
         <td>{{rowdata.gst}}</td>
         <td>{{rowdata.discount}}</td>
-        <td>{{rowdata.total}}</td>
+        <td>{{rowdata.total}}</td> 
 
       </tr>
     </ng-template>
   </p-table>
 
-  <p-dialog header="Enter Details Here .." [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
-    [width]="500">
+  <p-dialog header="Enter Details Here .." 
+  [(visible)]="displayDialog" [responsive]="true" showEffect="fade" 
+  [modal]="true"
+    [width]="700">
     <div class="ui-g ui-fluid" *ngIf="saleDetail">
       <form #f_sale="ngForm">
+          <div class="col-lg-12 col-md-12 col-xs-12 form-row">
+              <span class="inp-label top">BarCode</span>
+              <input type="text" #model_barCode="ngModel" 
+              class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+              (change)="getStockView(saleDetail.barCode)"
+                name="barCode" [(ngModel)]="saleDetail.barCode" floating required>    
+            </div>
+
         <div class="col-lg-12 col-md-12 col-xs-12 form-row">
           <span class="inp-label top">Item Name</span>
-          <select class="inp-text col-lg-12 col-md-12 col-xs-12" name="a" [(ngModel)]="saleDetail.saleItemId">
+          <select class="inp-text col-lg-12 col-md-12 col-xs-12" 
+          (change)="itemOnChange()"
+          name="a" 
+          [(ngModel)]="saleDetail.stockId">
             <option value=''>Select</option>
-            <option *ngFor="let item of items" value={{item.itemId}}>
-              {{item.itemName}}
+            <option *ngFor="let item of stockView" value={{item.stockId}}>
+              {{item.details}}
             </option>
           </select>
 
         </div>
-
+   
         <div class="col-lg-12 col-md-12 col-xs-12 form-row">
           <span class="inp-label top">Batch</span>
-          <input type="text" #b="ngModel" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12" name="batch"
-            [(ngModel)]="saleDetail.batch" floating required appAutofocus>
-          <div *ngIf="f_sale.submitted && b.invalid" class="inp-text mandatory-validation">
-            <div *ngIf="b.errors.required">Batch is required</div>
-          </div>
+          <input type="text" #model_batch="ngModel" 
+          class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+            name="batch" [(ngModel)]="saleDetail.batch" floating required>
+            
         </div>
         <div class="col-lg-12 col-md-12 col-xs-12 form-row">
           <span class="inp-label top">Qty</span>
-          <input type="number" #model_qty="ngModel" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
-            name="qty" [(ngModel)]="saleDetail.qty" floating required>
-          <div *ngIf="f_sale.submitted && model_qty.invalid" class="inp-text mandatory-validation">
-            <div *ngIf="model_qty.errors.required">Qty is required</div>
-          </div>
+          <input type="number" #model_qty="ngModel"  class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+            name="qty" [(ngModel)]="saleDetail.qty" (change)="calculateTotal()" floating required>
         </div>
 
         <div class="col-lg-12 col-md-12 col-xs-12 form-row">
           <span class="inp-label top">Mrp</span>
-          <input type="number" #model_mrp="ngModel" (change)="calculateTotal()" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+          <input type="number" #model_mrp="ngModel"  class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
             name="mrp" [(ngModel)]="saleDetail.mrp" floating required>
           <div *ngIf="f_sale.submitted && model_mrp.invalid" class="inp-text mandatory-validation">
             <div *ngIf="model_mrp.errors.required">Mrp is required</div>
           </div>
         </div>
+        
         <div class="col-lg-12 col-md-12 col-xs-12 form-row">
           <span class="inp-label top">Gst</span>
-          <input type="number" #model_gst="ngModel" (change)="calculateTotal()" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+          <input type="number" #model_gst="ngModel" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
             name="gst" [(ngModel)]="saleDetail.gst" floating required>
-          <div *ngIf="f_sale.submitted && model_gst.invalid" class="inp-text mandatory-validation">
-            <div *ngIf="model_gst.errors.required">Gst is required</div>
-          </div>
         </div>
+
+     
         <div class="col-lg-12 col-md-12 col-xs-12 form-row">
           <span class="inp-label top">Discount</span>
-          <input type="number" #model_discount="ngModel" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
-            name="discount" [(ngModel)]="saleDetail.discount" (change)="calculateTotal()" floating required>
-          <div *ngIf="f_sale.submitted && model_discount.invalid" class="inp-text mandatory-validation">
-            <div *ngIf="model_discount.errors.required">Discount is required</div>
-          </div>
+          <input type="number" #model_qty="ngModel" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+            name="discount" [(ngModel)]="saleDetail.discount" floating required>
         </div>
-
+        <div class="col-lg-12 col-md-12 col-xs-12 form-row">
+          <span class="inp-label top">Stock</span>
+          <input type="number" #model_stock="ngModel" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+            name="stock" [(ngModel)]="saleDetail.stockCurrent" floating required>
+        </div>
         <div class="col-lg-12 col-md-12 col-xs-12 form-row">
           <span class="inp-label top">Total</span>
-          <input type="text" #lg="ngModel" class="inp-text mandatory 
-        capitalize col-lg-12 col-md-12 col-xs-12"
-            name="total" [(ngModel)]="saleDetail.total" floating readonly>
+          <input type="number" #model_total="ngModel" class="inp-text mandatory capitalize col-lg-12 col-md-12 col-xs-12"
+            name="total" [(ngModel)]="saleDetail.total" floating required>
 
+            <div *ngIf="f_sale.submitted && model_total.invalid" class="inp-text mandatory-validation">
+              <div *ngIf="model_total.errors.required">Total is required -Please Check the Quantity</div>
+            </div>
         </div>
         <button type="submit" class="btn btn-default" (click)="saleSaveDetails(f_sale);">Save</button>
         <button type="submit" class="btn btn-default" (click)="delete();">Delete</button>

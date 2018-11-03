@@ -20,7 +20,7 @@ import { Title } from '../../../../node_modules/@angular/platform-browser';
   providers: [DatePipe]
 })
 export class SalesreportComponent implements OnInit {
-  fromDate: Date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+  fromDate: Date = new Date(new Date().getFullYear(), new Date().getMonth()-1, new Date().getDate());
  // toDate: Date = new Date();
  toDate: Date =  new Date(new Date().getFullYear(), new Date().getMonth() , new Date().getDate());
 
@@ -32,6 +32,11 @@ export class SalesreportComponent implements OnInit {
  saletotalAmount: number = 0;
  saletotalBills: number = 0;
  saleHeaderDetails: Array<any> = new Array<any>();
+
+ purchaseViewDetails: Array<any> = new Array<any>();
+ saleViewDetails: Array<any> = new Array<any>();
+
+ stockView: Array<any> = new Array<any>();
 
   responses: Response[];
     tableLoading: boolean = false;
@@ -49,6 +54,9 @@ export class SalesreportComponent implements OnInit {
   ngOnInit() {
     this.getPurchaseView();
     this.getSaleView();
+    this.getPurchaseViewDetails();
+    this.getSaleViewDetails();
+    this.getStockView();
   }
 
   getPurchaseView() {
@@ -74,8 +82,30 @@ export class SalesreportComponent implements OnInit {
         console.log(error);
       });
       this.getSaleView();
+      this.getPurchaseViewDetails();
+      this.getSaleViewDetails();
   }
-
+  getPurchaseViewDetails() {
+    this.tableLoading = true;
+    let input = {
+     fromdate: this.fromDate,
+     todate: this.toDate,
+    };
+    this.salesReportService.PurchaseViewDetails(input)
+    
+      .subscribe((data: ApiResponse) => {
+        console.log(input);
+        if (data.status) {
+          
+          this.purchaseViewDetails = data.data;
+          this.tableLoading = false;
+        } else {
+          this._messageService.add({ severity: 'error', summary: 'Failure!', detail: data.message });
+        }
+      }, (error: any) => {
+        console.log(error);
+      });
+  }
   getSaleView() {
     this.tableLoading = true;
     let input = {
@@ -99,7 +129,47 @@ export class SalesreportComponent implements OnInit {
         console.log(error);
       });
   }
-
+  getSaleViewDetails() {
+    this.tableLoading = true;
+    let input = {
+     fromdate: this.fromDate,
+     todate: this.toDate,
+    };
+    this.salesReportService.SaleViewDetails(input)
+    
+      .subscribe((data: ApiResponse) => {
+        console.log(input);
+        if (data.status) {
+          
+          this.saleViewDetails = data.data;
+          this.tableLoading = false;
+        } else {
+          this._messageService.add({ severity: 'error', summary: 'Failure!', detail: data.message });
+        }
+      }, (error: any) => {
+        console.log(error);
+      });
+  }
+  getStockView() {
+    this.tableLoading = true;
+    let input = {
+     fromdate: this.fromDate,
+     todate: this.toDate,
+    };
+    this.salesReportService.StockView(input)
+    
+      .subscribe((data: ApiResponse) => {
+        console.log(input);
+        if (data.status) {
+          this.stockView = data.data;
+          this.tableLoading = false;
+        } else {
+          this._messageService.add({ severity: 'error', summary: 'Failure!', detail: data.message });
+        }
+      }, (error: any) => {
+        console.log(error);
+      });
+  }
 
   back() {
 

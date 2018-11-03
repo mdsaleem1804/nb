@@ -25,4 +25,13 @@ export class SalesreportService {
   PurchaseViewDetails(data) {
     return this._http.post('http://localhost:8088/api/Purchase/PurchaseViewDetails', data)
   }
+  SaleViewDetails(data) {
+    return this._http.post('http://localhost:8088/api/Sale/SaleViewDetails', data)
+  }
+  StockView(data) {
+    return this._http.post('http://localhost:8088/api/Stock/StockView', data)
+  }
+  StockViewById(xStockId) {
+    return this._http.post('http://localhost:8088/api/Stock/StockViewById', xStockId)
+  }
 }

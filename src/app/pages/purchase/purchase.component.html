@@ -43,13 +43,17 @@
       </ng-template>
     </p-table>
 
-    <p-dialog header="Enter Details Here .." [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+    <p-dialog header="Enter Details Here .." [(visible)]="displayDialog" 
+    [responsive]="true"
+     showEffect="fade" 
+     [modal]="true"
       [width]="500">
       <div class="ui-g ui-fluid" *ngIf="purchasedetail">
         <form #f_purchase="ngForm">
           <div class="col-lg-12 col-md-12 col-xs-12 form-row">
             <span class="inp-label top">Item Name</span>
-            <select class="inp-text col-lg-12 col-md-12 col-xs-12" name="a" [(ngModel)]="purchasedetail.purchaseItemId">
+            <select class="inp-text col-lg-12 col-md-12 col-xs-12" 
+            name="a" [(ngModel)]="purchasedetail.purchaseItemId">
               <option value=''>Select</option>
               <option *ngFor="let item of items" value={{item.itemId}}>
                 {{item.itemName}}

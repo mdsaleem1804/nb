@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   Test, Item, Group, Ledger
 } from '../../shared/models/master';
-import { SaleHeader, SaleDetails } from '../../shared/models/sale';
+import { SaleHeader, SaleDetails,StockSelection} from '../../shared/models/sale';
 import { MasterService } from '../../shared/services/master/master.service';
 import { FormsModule, ReactiveFormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,6 +12,9 @@ import { slideToRight, slideToLeft } from '../../router.animations';
 import { ConfirmationService } from '../../../../node_modules/primeng/api';
 import { LoaderService } from '../../shared/services/loader/loader.service';
 import { Title } from '../../../../node_modules/@angular/platform-browser';
+
+import { SalesreportService } from '../../shared/services/salesreport/salesreport.service';
+
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
@@ -34,9 +37,12 @@ export class SalesComponent implements OnInit {
   items: Array<Item> = new Array<Item>();
   ledger: Ledger = new Ledger();
   ledgers: Array<Ledger> = new Array<Ledger>();
+  stockView: Array<any> = new Array<any>();
+  stockSelection :StockSelection =new StockSelection();
   fromDate: Date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
   constructor(private masterobj: MasterService, private messageobj: MessageService, private _router: Router,
     private _confirmationService: ConfirmationService, private _route: ActivatedRoute,
+    private salesReportService: SalesreportService,
     private _loaderService: LoaderService, private titleService: Title) {
     this.titleService.setTitle('sale');
   }
@@ -44,6 +50,7 @@ export class SalesComponent implements OnInit {
   ngOnInit() {
 
     this.itemlist();
+    this.getStockView(0);
     this.ledgerlist();
   }
 
@@ -81,15 +88,16 @@ export class SalesComponent implements OnInit {
     if (this.saleHeader.saleHeaderId == 0) {
       this.saleHeader.saleDetails = this.arrSaleDetails;
       this._loaderService.show();
-       this.saleHeader.createdBy = "user";
-       this.saleHeader.billDate=this.fromDate;
-      console.log(this.saleHeader);
+      this.saleHeader.createdBy = "user";
+      this.saleHeader.billDate = this.fromDate;
       this.masterobj.saleInsert(this.saleHeader)
         .subscribe((data: ApiResponse) => {
           if (data.status) {
             this.messageobj.add({ severity: 'success', summary: 'Success!', detail: data.message });
             this.saleHeader = new SaleHeader();
-
+            this.saleDetail = new SaleDetails();
+            this.arrSaleDetails = new Array<SaleDetails>();
+            this.selectedSaleDetail = new SaleDetails();
           } else {
             this.messageobj.add({ severity: 'error', summary: 'Failure!', detail: data.message });
           }
@@ -97,9 +105,7 @@ export class SalesComponent implements OnInit {
         }, (error: any) => {
           console.log(error);
         });
-        this.saleDetail = new SaleDetails();
-        this.arrSaleDetails = new Array<SaleDetails>();
-        this.selectedSaleDetail = new SaleDetails();
+
     }
   }
   onSelect(itemId) {
@@ -112,16 +118,26 @@ export class SalesComponent implements OnInit {
     return this.selectedItem.itemName
   }
   calculateTotal() {
-    this.saleDetail.total = (
-      (this.saleDetail.qty * this.saleDetail.mrp)+
-    ((this.saleDetail.qty * this.saleDetail.mrp)*this.saleDetail.gst/100));
-  }
+    if(this.saleDetail.stockCurrent>=this.saleDetail.qty)
+    {
+      this.saleDetail.total = (
+        (this.saleDetail.qty * this.saleDetail.mrp) +
+        ((this.saleDetail.qty * this.saleDetail.mrp) * this.saleDetail.gst / 100));
+  
+    }
+    else{
+      this.messageobj.add({ severity: 'error', summary: 'Success!', detail: "Qty Should not be greater than the Current Stock"+ this.saleDetail.stockCurrent.toString() });
+    }
+     }
   showDialogToAdd() {
     this.newEntry = true;
     this.saleDetail = new SaleDetails()
     this.displayDialog = true;
   }
   save() {
+  
+    
+this.saleDetail.saleItemId=1;
     let arrSaleDetails = [...this.arrSaleDetails];
     if (this.newEntry)
       arrSaleDetails.push(this.saleDetail);
@@ -142,6 +158,36 @@ export class SalesComponent implements OnInit {
     this.saleDetail = this.cloneCar(event.data);
     this.displayDialog = true;
   }
+  itemOnChange()
+  {
+
+   this. getStockViewById(this.saleDetail.stockId);
+  }
+  getStockViewById(xStockId) {
+  
+    this.tableLoading = true;
+    let input = {
+      stockId: xStockId,
+    };
+    this.salesReportService.StockViewById(input)
+
+      .subscribe((data: ApiResponse) => {
+        if (data.status) {
+this.saleDetail.batch=data.data[0].batch;
+this.saleDetail.mrp=data.data[0].mrp;
+this.saleDetail.gst=data.data[0].gst;
+this.saleDetail.discount=data.data[0].discount;
+this.saleDetail.stockCurrent=data.data[0].stockCurrent;
+
+             
+          this.tableLoading = false;
+        } else {
+          this.messageobj.add({ severity: 'error', summary: 'Failure!', detail: data.message });
+        }
+      }, (error: any) => {
+        console.log(error);
+      });
+  }
   cloneCar(c: SaleDetails): SaleDetails {
     let saleDetail = new SaleDetails()
     for (let prop in c) {
@@ -151,7 +197,6 @@ export class SalesComponent implements OnInit {
   }
 
   itemlist() {
-
     this.tableLoading = true;
     this.masterobj.itemList(this.item)
       .subscribe((data: ApiResponse) => {
@@ -161,6 +206,26 @@ export class SalesComponent implements OnInit {
           this.messageobj.add({ severity: 'error', summary: 'Failure!', detail: data.message });
         }
         this.tableLoading = false;
+      }, (error: any) => {
+        console.log(error);
+      });
+  }
+
+  getStockView(xBarCode) {
+    this.tableLoading = true;
+    let input = {
+      barCode: xBarCode,
+    };
+    this.salesReportService.StockView(input)
+
+      .subscribe((data: ApiResponse) => {
+
+        if (data.status) {
+          this.stockView = data.data;
+          this.tableLoading = false;
+        } else {
+          this.messageobj.add({ severity: 'error', summary: 'Failure!', detail: data.message });
+        }
       }, (error: any) => {
         console.log(error);
       });

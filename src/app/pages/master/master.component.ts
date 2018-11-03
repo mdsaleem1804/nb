@@ -69,11 +69,7 @@ export class MasterComponent implements OnInit {
             this.itemlist();
             this.type = "item";
           }
-          else if (params['type'] == "purchase") {
-            this.itemlist();
-            this.type = "purchase";
-          }
-
+      
         } else {
           this.mainpage = true;
           this.showTable = false;
@@ -413,9 +409,7 @@ export class MasterComponent implements OnInit {
     else if (this.type == 'item') {
       this._router.navigate(['/master'], { queryParams: { type: "item" } });
     }
-    else if (this.type == 'purchase') {
-      this._router.navigate(['/master'], { queryParams: { type: "purchase" } });
-    }
+
   }
 
   cancel() {

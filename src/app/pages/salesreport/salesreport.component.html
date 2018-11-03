@@ -74,6 +74,49 @@
        
       </p-tabPanel>
 
+      <p-tabPanel header="PurchaseDetails" leftIcon="pi pi-calendar"> 
+        <div class="col-lg-12 form-row">
+          <p-table #dtPending [value]="purchaseViewDetails" [rows]="10" [globalFilterFields]="['ledgerName']"
+            [autoLayout]="true" [loading]="tableLoading" [responsive]="true" [paginator]="true">
+            <ng-template pTemplate="caption">
+              <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="30" placeholder="Search.." (input)="dtPending.filterGlobal($event.target.value, 'contains')"
+                  style="width:auto">
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th> Inv.No </th>
+                <th> Date</th>
+                <th>Ledger Name </th>
+                <th>ItemName</th>
+                <th>Batch</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Mrp</th>
+                <th>Gst</th>
+                <th>Discount</th>
+
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-response let-index="rowIndex">
+              <tr>
+                <td>{{response.purchaseHeaderId}}</td>
+                <td>{{response.billDate}}</td>
+                <td>{{response.ledgerName}}</td>
+                <td>{{response.itemName}}</td>
+                <td>{{response.batch}}</td>
+                <td>{{response.qty}}</td>
+                <td>{{response.price}}</td>
+                <td>{{response.mrp}}</td>
+                <td>{{response.gst}}</td>
+                <td>{{response.discount}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+    </p-tabPanel>
       <p-tabPanel header="Sales">
           <div class="col-lg-6 form-row">
               <div class="totals">
@@ -127,12 +170,87 @@
               </ng-template>
             </p-table>
           </div>
+       
+       
+       
         </p-tabPanel>
-        <p-tabPanel header="Sales Return">
-          </p-tabPanel>
+        <p-tabPanel header="Sales Details" leftIcon="pi pi-calendar"> 
+          <div class="col-lg-12 form-row">
+            <p-table #dtPending [value]="saleViewDetails" [rows]="10" [globalFilterFields]="['ledgerName']"
+              [autoLayout]="true" [loading]="tableLoading" [responsive]="true" [paginator]="true">
+              <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="30" placeholder="Search.." (input)="dtPending.filterGlobal($event.target.value, 'contains')"
+                    style="width:auto">
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th> Inv.No </th>
+                  <th> Date</th>
+                  <th>Ledger Name </th>
+                  <th>ItemName</th>
+                  <th>Batch</th>
+                  <th>Qty</th>
+                  <th>Mrp</th>
+                  <th>Gst</th>
+                  <th>Discount</th>
+  
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-response let-index="rowIndex">
+                <tr>
+                  <td>{{response.saleHeaderId}}</td>
+                  <td>{{response.billDate}}</td>
+                  <td>{{response.ledgerName}}</td>
+                  <td>{{response.itemName}}</td>
+                  <td>{{response.batch}}</td>
+                  <td>{{response.qty}}</td>
+                  <td>{{response.mrp}}</td>
+                  <td>{{response.gst}}</td>
+                  <td>{{response.discount}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+      </p-tabPanel>
 
-        <p-tabPanel header="Summary">
-          </p-tabPanel>
+      <p-tabPanel header="Stock" leftIcon="pi pi-calendar"> 
+        <div class="col-lg-12 form-row">
+          <p-table #dtPending [value]="stockView" [rows]="10" [globalFilterFields]="['ledgerName']"
+            [autoLayout]="true" [loading]="tableLoading" [responsive]="true" [paginator]="true">
+            <ng-template pTemplate="caption">
+              <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="30" placeholder="Search.." (input)="dtPending.filterGlobal($event.target.value, 'contains')"
+                  style="width:auto">
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+
+                <th>ItemName</th>
+                <th>Dated</th>
+                <th>Inv.No</th>
+                <th>Batch</th>
+                <th>Stock</th>
+
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-response let-index="rowIndex">
+              <tr>
+                <td>{{response.itemName}}</td>
+                <td>{{response.billDate}}</td>
+                <td>{{response.purchaseHeaderId}}</td>
+                <td>{{response.batch}}</td>
+                <td>{{response.stockCurrent}}</td>
+                
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+    </p-tabPanel>
     </p-tabView>
 
 </div>
