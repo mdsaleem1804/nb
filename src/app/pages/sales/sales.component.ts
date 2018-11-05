@@ -52,6 +52,7 @@ export class SalesComponent implements OnInit {
     this.itemlist();
     this.getStockView(0);
     this.ledgerlist();
+    this.getSaleViewDetails();
   }
 
   saleSave(form: NgForm) {
@@ -85,7 +86,7 @@ export class SalesComponent implements OnInit {
     this.save();
   }
   saleSaveProceed() {
-    if (this.saleHeader.saleHeaderId == 0) {
+   // if (this.saleHeader.saleHeaderId == 0) {
       this.saleHeader.saleDetails = this.arrSaleDetails;
       this._loaderService.show();
       this.saleHeader.createdBy = "user";
@@ -106,7 +107,7 @@ export class SalesComponent implements OnInit {
           console.log(error);
         });
 
-    }
+    //}
   }
   onSelect(itemId) {
     this.selectedItem = null;
@@ -137,7 +138,7 @@ export class SalesComponent implements OnInit {
   save() {
   
     
-this.saleDetail.saleItemId=1;
+//this.saleDetail.saleItemId=1;
     let arrSaleDetails = [...this.arrSaleDetails];
     if (this.newEntry)
       arrSaleDetails.push(this.saleDetail);
@@ -163,6 +164,24 @@ this.saleDetail.saleItemId=1;
 
    this. getStockViewById(this.saleDetail.stockId);
   }
+
+  getSaleViewDetails() {
+    let input = {
+   
+    };
+    this.salesReportService.SaleView(input)
+      .subscribe((data: ApiResponse) => {
+        if (data.status) {
+          
+          this.saleHeader.saleHeaderId = data.data.maxId;
+        } else {
+         // this._messageService.add({ severity: 'error', summary: 'Failure!', detail: data.message });
+        }
+      }, (error: any) => {
+        console.log(error);
+      });
+  }
+  
   getStockViewById(xStockId) {
   
     this.tableLoading = true;
@@ -178,6 +197,7 @@ this.saleDetail.mrp=data.data[0].mrp;
 this.saleDetail.gst=data.data[0].gst;
 this.saleDetail.discount=data.data[0].discount;
 this.saleDetail.stockCurrent=data.data[0].stockCurrent;
+this.saleDetail.saleItemId=data.data[0].stockItemId;
 
              
           this.tableLoading = false;

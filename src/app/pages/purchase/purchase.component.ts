@@ -12,6 +12,8 @@ import { slideToRight, slideToLeft } from '../../router.animations';
 import { ConfirmationService } from '../../../../node_modules/primeng/api';
 import { LoaderService } from '../../shared/services/loader/loader.service';
 import { Title } from '../../../../node_modules/@angular/platform-browser';
+import { SalesreportService } from '../../shared/services/salesreport/salesreport.service';
+
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
@@ -35,7 +37,9 @@ export class PurchaseComponent implements OnInit {
   ledger: Ledger = new Ledger();
   ledgers: Array<Ledger> = new Array<Ledger>();
   fromDate: Date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-  constructor(private masterobj: MasterService, private messageobj: MessageService, private _router: Router,
+  constructor(private masterobj: MasterService, private messageobj: MessageService, 
+    private _router: Router,
+    private salesReportService: SalesreportService,
     private _confirmationService: ConfirmationService, private _route: ActivatedRoute,
     private _loaderService: LoaderService, private titleService: Title) {
     this.titleService.setTitle('Purchase');
@@ -45,6 +49,27 @@ export class PurchaseComponent implements OnInit {
 
     this.itemlist();
     this.ledgerlist();
+    this. getPurchaseView();
+  }
+  getPurchaseView() {
+    this.tableLoading = true;
+    let input = {
+
+    };
+    this.salesReportService.PurchaseView(input)
+    
+      .subscribe((data: ApiResponse) => {
+
+        if (data.status) {
+
+          this.purchaseHeader.purchaseHeaderId=data.data.maxId;
+          this.tableLoading = false;
+        } else {
+        }
+      }, (error: any) => {
+        console.log(error);
+      });
+
   }
 
   purchaseSave(form: NgForm) {
@@ -78,7 +103,7 @@ export class PurchaseComponent implements OnInit {
     this.save();
   }
   purchaseSaveProceed() {
-    if (this.purchaseHeader.purchaseHeaderId == 0) {
+    //if (this.purchaseHeader.purchaseHeaderId == 0) {
       this.purchaseHeader.purchaseDetails = this.arrPurchaseDetails;
       this._loaderService.show();
        this.purchaseHeader.createdBy = "user";
@@ -100,7 +125,7 @@ export class PurchaseComponent implements OnInit {
         this.purchasedetail = new PurchaseDetails();
         this.arrPurchaseDetails = new Array<PurchaseDetails>();
         this.selectedPurchaseDetail = new PurchaseDetails();
-    }
+   // }
   }
   onSelect(itemId) {
     this.selectedItem = null;

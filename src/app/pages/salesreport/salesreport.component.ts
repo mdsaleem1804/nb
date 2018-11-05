@@ -58,7 +58,9 @@ export class SalesreportComponent implements OnInit {
     this.getSaleViewDetails();
     this.getStockView();
   }
-
+  onPrint(){
+    window.print();
+}
   getPurchaseView() {
     this.tableLoading = true;
     let input = {

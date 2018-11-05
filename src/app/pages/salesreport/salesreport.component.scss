@@ -31,4 +31,6 @@
       transition: 0.5s ease-in-out;
     }
   }
-  
+  @media print{
+    .doNotPrint{display:none !important;}
+  }
